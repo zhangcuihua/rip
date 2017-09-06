@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            display: block;
+            margin:0 auto;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas width="320" height="480" style="border: 1px solid #000;"> </canvas>
+
+    <script>
+        var cs=document.querySelector('canvas');
+        var ctx=cs.getContext('2d');
+
+        var backImg=new Image();
+        var upImg=new Image();
+
+        var size=20;
+
+        var isRip=false;//鼠标是否按下
+
+        //画上面的图片
+        upImg.onload=function(){
+            ctx.drawImage(upImg,0,0,upImg.width,upImg.height,0,0,cs.width,cs.height);
+        }
+
+        backImg.onload=function(){
+            cs.onmousedown=function(){
+               isRip=true;
+            }
+
+            cs.onmouseup=function(){
+               isRip=false;
+            }
+
+            cs.onmousemove=function(e){
+                if(isRip){
+                  var x=e.offsetX;
+                  var y=e.offsetY;
+                    console.log(x);
+                    console.log(y);
+
+                    ctx.drawImage(backImg,x-size/2,y-size/2,size,size,x-size/2,y-size/2,size,size);
+                }
+            }
+        }
+
+
+        backImg.src='img/g15_back.jpg';
+        upImg.src='img/g15_up.jpg';
+    </script>
+
+</body>
+</html>
